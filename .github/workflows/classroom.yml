@@ -38,7 +38,7 @@ jobs:
           test_case = TestClimateEDA()
           print(test_case.calculate_grade())
             ")
-            
+
           echo "Grade: $GRADE/100"
           echo "GRADE=$GRADE" >> $GITHUB_ENV
 
