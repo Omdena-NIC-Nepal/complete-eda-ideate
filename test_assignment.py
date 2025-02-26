@@ -282,19 +282,33 @@ class TestClimateEDA(unittest.TestCase):
             self.assertIn(var, self.all_code, f"Climate variable {var} not analyzed")
 
     @classmethod
+    # def calculate_grade(cls):
+    #     """Calculate the grade based on passing tests"""
+    #     test_suite = unittest.TestLoader().loadTestsFromTestCase(TestClimateEDA)
+    #     test_runner = unittest.TextTestRunner(verbosity=2)
+    #     test_result = test_runner.run(test_suite)
+        
+    #     # Count passed tests
+    #     passed_tests = len([test for test, result in test_result.result if result])
+        
+    #     # Calculate grade (out of 100)
+    #     total_tests = len(test_result.result)
+    #     grade = (passed_tests / total_tests) * 100
+    #     return round(grade)
     def calculate_grade(cls):
         """Calculate the grade based on passing tests"""
         test_suite = unittest.TestLoader().loadTestsFromTestCase(TestClimateEDA)
         test_runner = unittest.TextTestRunner(verbosity=2)
         test_result = test_runner.run(test_suite)
-        
-        # Count passed tests
-        passed_tests = len([test for test, result in test_result.result if result])
+
+        # Get the number of passed tests
+        passed_tests = test_result.testsRun - len(test_result.failures) - len(test_result.errors)
         
         # Calculate grade (out of 100)
-        total_tests = len(test_result.result)
+        total_tests = test_result.testsRun
         grade = (passed_tests / total_tests) * 100
         return round(grade)
+
 
 if __name__ == '__main__':
     grade = TestClimateEDA.calculate_grade()
