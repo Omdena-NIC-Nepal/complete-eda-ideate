@@ -23,14 +23,36 @@ jobs:
           python -m pip install --upgrade pip
           pip install numpy pandas matplotlib seaborn nbformat nbconvert jupyter_client ipykernel
 
+<<<<<<< HEAD
       - name: Run tests and calculate grade
         run: |
           # Generate climate data
           # python climate_data.py
+=======
+    - name: Run tests and calculate grade
+      run: |
+        # Generate climate data
+        # python climate_data.py
+        
+        # Run tests
+        python -m unittest test_climate_eda.py
+        
+        # Extract grade from test output
+        GRADE=$(python -c "
+        import unittest
+        from test_climate_eda import TestClimateEDA
+        test_case = TestClimateEDA()
+        print(test_case.calculate_grade())
+          ")
+          
+        echo "Grade: $GRADE/100"
+        echo "GRADE=$GRADE" >> $GITHUB_ENV
+>>>>>>> main
 
           # Run tests
           python -m unittest test_assignment.py
 
+<<<<<<< HEAD
           # Extract grade from test output
           GRADE=$(python -c "
           import unittest
@@ -51,3 +73,10 @@ jobs:
         with:
           name: grade-summary
           path: grade_summary.md
+=======
+    - name: Upload grade summary
+      uses: actions/upload-artifact@v4
+      with:
+        name: grade-summary
+        path: grade_summary.md
+>>>>>>> main
